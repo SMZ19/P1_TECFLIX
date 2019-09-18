@@ -13,6 +13,7 @@
 #include <QKeyEvent>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QLabel>
+#include <QWheelEvent>
 
 class windowGUI : public QWidget {
 
@@ -24,8 +25,10 @@ public:
 
 
 protected:
+
     void paintEvent(QPaintEvent *);
     void timerEvent(QTimerEvent *);
+    void wheelEvent(QWheelEvent *);
     void drawLines(QPainter *qp);
 
 private:
@@ -34,12 +37,11 @@ private:
     static const int filas = 15;
     static const int columnas = 15;
     bool mapMatrix[columnas][filas];
-
-    static const int B_WIDTH = 800;
+    int zooming;
+    static const int B_WIDTH = 600;
     static const int B_HEIGHT = 600;
     int dimX =0;
     int dimY=0;
-    bool found = false;
     int maxDivX  = 0;
     int maxDivY  = 0;
     int squareSize = 50;

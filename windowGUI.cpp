@@ -22,7 +22,7 @@ windowGUI::windowGUI(QWidget *parent) : QWidget(parent) {
     connect(slider, &QSlider::valueChanged, label,static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
 
     resize(B_WIDTH, B_HEIGHT);
-    getDimensions(B_WIDTH,B_HEIGHT);
+    getDimensions(this->width(),this->height());
     initGame();
 }
 
@@ -34,21 +34,25 @@ void windowGUI::getDimensions(int dimX, int dimY) {
 
     maxDivX = dimX / squareSize;
     maxDivY = dimY / squareSize;
-    cout<<"MAX en X:"<<maxDivX<<endl;
-    cout<<"MAX en Y:"<<maxDivY<<endl;
+
 
 }
+
 
 void windowGUI::paintEvent(QPaintEvent *e) {
 
     Q_UNUSED(e);
     doDrawing();
-    squareSize = slider->value();
+   // squareSize = slider->value();
+    this->resize(B_WIDTH+zooming,B_HEIGHT+zooming);
+    getDimensions(this->width(),this->height());
 }
 
 void windowGUI::doDrawing() {
 
     QPainter qp(this);
+
+
 
     QPen pen(Qt::black, 1, Qt::SolidLine);
     qp.setPen(pen);
@@ -62,10 +66,20 @@ void windowGUI::doDrawing() {
 
 }
 
+
 void windowGUI::timerEvent(QTimerEvent *e) {
 
     Q_UNUSED(e);
 
 
     repaint();
+}
+void windowGUI::wheelEvent(QWheelEvent *event) {
+    if(event->delta() == 120){
+        zooming+=10;
+    }else{
+        zooming-=10;
+    }
+
+    QWidget::wheelEvent(event);
 }
