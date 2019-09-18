@@ -43,8 +43,9 @@ void windowGUI::paintEvent(QPaintEvent *e) {
 
     Q_UNUSED(e);
     doDrawing();
-   // squareSize = slider->value();
+
     this->resize(B_WIDTH+zooming,B_HEIGHT+zooming);
+
     getDimensions(this->width(),this->height());
 }
 
@@ -77,8 +78,10 @@ void windowGUI::timerEvent(QTimerEvent *e) {
 void windowGUI::wheelEvent(QWheelEvent *event) {
     if(event->delta() == 120){
         zooming+=10;
+        squareSize -= 5;
     }else{
         zooming-=10;
+        squareSize += 5;
     }
 
     QWidget::wheelEvent(event);
