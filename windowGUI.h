@@ -14,12 +14,20 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QLabel>
 #include <QWheelEvent>
+#include <qt5/QtWidgets/QPushButton>
+#include <QMainWindow>
+#include <QApplication>
+#include <QMenu>
+#include <QMenuBar>
+#include <string>
+#pragma once
 
-class windowGUI : public QWidget {
+
+
+class windowGUI : public QMainWindow {
 
 public:
     windowGUI(QWidget *parent = 0);
-
 
 
 
@@ -34,6 +42,9 @@ protected:
 private:
     QSlider *slider;
     QLabel *label;
+    bool nopagMode = false;
+    bool pagMode = true;
+    bool infiniteMode = false;
     static const int filas = 15;
     static const int columnas = 15;
     bool mapMatrix[columnas][filas];
@@ -46,9 +57,12 @@ private:
     int maxDivY  = 0;
     int squareSize = 50;
     static const int DELAY = 140;
-
+    char mode;
     int timerId;
 
+    void setModeNoPag();
+    void setModePag();
+    void setModeInfinite();
 
     void doDrawing();
 
