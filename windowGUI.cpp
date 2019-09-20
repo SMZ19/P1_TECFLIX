@@ -4,7 +4,6 @@
 
 #include "windowGUI.h"
 
-
 #include <QPainter>
 #include <QTime>
 #include <iostream>
@@ -36,6 +35,8 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     mode->addSeparator();
     mode->addAction(quit);
 
+
+
     qApp->setAttribute(Qt::AA_DontShowIconsInMenus, false);
 
     connect(quit, &QAction::triggered, qApp, &QApplication::quit);
@@ -44,9 +45,37 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     connect(pagMode, &QAction::triggered, this, &windowGUI::setModePag);
     connect(infiniteMode, &QAction::triggered, this, &windowGUI::setModeInfinite);
 
-    resize(B_WIDTH, B_HEIGHT);
+
+
+
     getDimensions(this->width(),this->height());
     initGame();
+    for(int i = 0; i < 27 ; i++){
+
+        movieList[i] = movie();
+        movieList[i].setNum(i);
+        movieList[i].setTitle("27");
+    }
+
+
+
+    firstBtn = new QPushButton(QString::number(movieList[counter1].getNum()),this);
+    firstBtn->setGeometry(200,500,50,50);
+    secondBtn = new QPushButton(QString::number(movieList[counter2].getNum()),this);
+    secondBtn->setGeometry(250,500,50,50);
+    thirdBtn = new QPushButton(QString::number(movieList[counter3].getNum()),this);
+    thirdBtn->setGeometry(300,500,50,50);
+    previousBtn = new QPushButton(this);
+    previousBtn->setIcon(QIcon("/home/smz/CLionProjects/P1_TECFLIX/Images/previous.png"));
+    previousBtn->setIconSize(QSize(50, 50));
+    previousBtn->setGeometry(140,500,50,50);
+    nextBtn = new QPushButton(this);
+    nextBtn->setIcon(QIcon("/home/smz/CLionProjects/P1_TECFLIX/Images/next.png"));
+    nextBtn->setIconSize(QSize(50, 50));
+    nextBtn->setGeometry(360,500,50,50);
+
+
+
 }
 
 void windowGUI::initGame() {
@@ -65,33 +94,37 @@ void windowGUI::setModeNoPag() {
     nopagMode = true;
     pagMode = false;
     infiniteMode = false;
-    cout<<nopagMode<<endl;
-    cout<<pagMode<<endl;
-    cout<<infiniteMode<<endl;
+
 }
 void windowGUI::setModePag() {
     nopagMode = false;
     pagMode = true;
     infiniteMode = false;
-    cout<<nopagMode<<endl;
-    cout<<pagMode<<endl;
-    cout<<infiniteMode<<endl;
+
 }
 void windowGUI::setModeInfinite() {
     nopagMode = false;
     pagMode = false;
     infiniteMode = true;
-    cout<<nopagMode<<endl;
-    cout<<pagMode<<endl;
-    cout<<infiniteMode<<endl;
+
 }
 
 void windowGUI::paintEvent(QPaintEvent *e) {
 
     Q_UNUSED(e);
     doDrawing();
+    if((B_HEIGHT + zooming) < 650 && B_WIDTH+zooming > 400 && B_HEIGHT+zooming > 400) {
+        this->resize(B_WIDTH + zooming, B_HEIGHT + zooming);
+    }else{
+        if((B_WIDTH+zooming < 450) && (B_HEIGHT+zooming) < 450){
+            this->resize(449 , 449);
 
-    this->resize(B_WIDTH+zooming,B_HEIGHT+zooming);
+        }else{
+
+            this->resize(B_WIDTH + zooming, B_HEIGHT);
+        }
+    }
+
 
     getDimensions(this->width(),this->height());
 }
@@ -101,27 +134,44 @@ void windowGUI::doDrawing() {
     QPainter qp(this);
 
 
-    if(nopagMode == true) {
+    if(nopagMode == true ) {
+        firstBtn->hide();
+        secondBtn->hide();
+        thirdBtn->hide();
+        nextBtn->hide();
+        previousBtn->hide();
         QPen pen(Qt::black, 1, Qt::SolidLine);
         qp.setPen(pen);
-        for (int c = 1; c < maxDivX; c++) {
-            for (int f = 1; f < maxDivY; f++) {
-                qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
+        for (int c = 0; c < maxDivX; c++) {
+            for (int f = 0; f < maxDivY; f++) {
+                if(this->width() == 449 && this->height() == 449){
+                    qp.drawRect(0, 0, 400, 400);
+                }
+                else {
+                    qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
+                }
             }
         }
-    }else if(pagMode == true){
+    }else if(pagMode == true ){
+        firstBtn->show();
+        secondBtn->show();
+        thirdBtn->show();
+        nextBtn->show();
+        previousBtn->show();
+        /*
         QPen pen(Qt::cyan, 1, Qt::SolidLine);
         qp.setPen(pen);
-        for (int c = 1; c < maxDivX; c++) {
-            for (int f = 1; f < maxDivY; f++) {
+        for (int c = 0; c < maxDivX; c++) {
+            for (int f = 0; f < maxDivY; f++) {
                 qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
             }
-        }
+        }*/
+
     }else if(infiniteMode == true){
         QPen pen(Qt::red, 1, Qt::SolidLine);
         qp.setPen(pen);
-        for (int c = 1; c < maxDivX; c++) {
-            for (int f = 1; f < maxDivY; f++) {
+        for (int c = 0; c < maxDivX; c++) {
+            for (int f = 0; f < maxDivY; f++) {
                 qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
             }
         }

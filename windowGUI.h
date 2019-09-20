@@ -20,6 +20,8 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <string>
+#include "movie.h"
+
 #pragma once
 
 
@@ -42,6 +44,16 @@ protected:
 private:
     QSlider *slider;
     QLabel *label;
+    QPushButton *firstBtn;
+    QPushButton *secondBtn;
+    QPushButton *thirdBtn;
+    QPushButton *previousBtn;
+    QPushButton *nextBtn;
+
+    int counter1 = 0;
+    int counter2 = 1;
+    int counter3 = 2;
+
     bool nopagMode = false;
     bool pagMode = true;
     bool infiniteMode = false;
@@ -55,10 +67,11 @@ private:
     int dimY=0;
     int maxDivX  = 0;
     int maxDivY  = 0;
-    int squareSize = 50;
+    int squareSize = 200;
     static const int DELAY = 140;
     char mode;
     int timerId;
+    movie movieList[27];
 
     void setModeNoPag();
     void setModePag();
