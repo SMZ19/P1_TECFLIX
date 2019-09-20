@@ -56,14 +56,19 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
         movieList[i].setNum(i);
         movieList[i].setTitle("27");
     }
+    pageList[0] = page();
+    pageList[0].setNum(counter1);
+    pageList[1] = page();
+    pageList[1].setNum(counter2);
+    pageList[2] = page();
+    pageList[2].setNum(counter3);
 
 
-
-    firstBtn = new QPushButton(QString::number(movieList[counter1].getNum()),this);
+    firstBtn = new QPushButton(QString::number(pageList[0].getNum()),this);
     firstBtn->setGeometry(200,500,50,50);
-    secondBtn = new QPushButton(QString::number(movieList[counter2].getNum()),this);
+    secondBtn = new QPushButton(QString::number(pageList[1].getNum()),this);
     secondBtn->setGeometry(250,500,50,50);
-    thirdBtn = new QPushButton(QString::number(movieList[counter3].getNum()),this);
+    thirdBtn = new QPushButton(QString::number(pageList[2].getNum()),this);
     thirdBtn->setGeometry(300,500,50,50);
     previousBtn = new QPushButton(this);
     previousBtn->setIcon(QIcon("/home/smz/CLionProjects/P1_TECFLIX/Images/previous.png"));
@@ -74,6 +79,8 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     nextBtn->setIconSize(QSize(50, 50));
     nextBtn->setGeometry(360,500,50,50);
 
+    connect(nextBtn, &QPushButton::clicked, this, &windowGUI::changePagesNext);
+    connect(previousBtn, &QPushButton::clicked, this, &windowGUI::changePagesPrevious);
 
 
 }
@@ -200,4 +207,30 @@ void windowGUI::wheelEvent(QWheelEvent *event) {
     }
 
     QWidget::wheelEvent(event);
+}
+void windowGUI::changePagesNext() {
+
+    counter1+=3;
+    counter2+=3;
+    counter3+=3;
+    pageList[0].setNum(counter1);
+    pageList[1].setNum(counter2);
+    pageList[2].setNum(counter3);
+    firstBtn->setText(QString::number(pageList[0].getNum()));
+    secondBtn->setText(QString::number(pageList[1].getNum()));
+    thirdBtn->setText(QString::number(pageList[2].getNum()));
+
+}
+void windowGUI::changePagesPrevious() {
+
+    counter1-=3;
+    counter2-=3;
+    counter3-=3;
+    pageList[0].setNum(counter1);
+    pageList[1].setNum(counter2);
+    pageList[2].setNum(counter3);
+    firstBtn->setText(QString::number(pageList[0].getNum()));
+    secondBtn->setText(QString::number(pageList[1].getNum()));
+    thirdBtn->setText(QString::number(pageList[2].getNum()));
+
 }

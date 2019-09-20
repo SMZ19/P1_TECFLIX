@@ -21,6 +21,7 @@
 #include <QMenuBar>
 #include <string>
 #include "movie.h"
+#include "page.h"
 
 #pragma once
 
@@ -32,7 +33,12 @@ public:
     windowGUI(QWidget *parent = 0);
 
 
-
+private slots:
+    void setModeNoPag();
+    void setModePag();
+    void setModeInfinite();
+    void changePagesNext();
+    void changePagesPrevious();
 
 protected:
 
@@ -72,15 +78,15 @@ private:
     char mode;
     int timerId;
     movie movieList[27];
+    page pageList[3];
 
-    void setModeNoPag();
-    void setModePag();
-    void setModeInfinite();
+
 
     void doDrawing();
 
     void getDimensions(int , int);
     void initGame();
+
 
 };
 
