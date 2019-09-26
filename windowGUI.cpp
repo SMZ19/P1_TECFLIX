@@ -88,7 +88,7 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     for(int i =1; i< 4; i++){
         for(int n = 0; n < 9; n++){
             linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
-
+            linkedL.obtainNode(i)->ButtonList[n]->hide();
         }
 
     }
@@ -203,8 +203,11 @@ void windowGUI::loadImagesP1() {
     for(int n = 0; n < 9; n+=3){
 
         linkedL.obtainNode(1)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n]->show();
         linkedL.obtainNode(1)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n+1]->show();
         linkedL.obtainNode(1)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n+2]->show();
 
 
     }
