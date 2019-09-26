@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(P1_TECFLIX)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp windowGUI.cpp windowGUI.h linkedlist.cpp movie.cpp movie.h page.cpp page.h)
+set(SOURCE_FILES main.cpp windowGUI.cpp windowGUI.h movie.cpp movie.h Page.cpp Page.h linkedList.cpp linkedList.h)
 # Include a library search using find_package()
 # via REQUIRED, specify that libraries are required
 find_package(Qt5Core REQUIRED)

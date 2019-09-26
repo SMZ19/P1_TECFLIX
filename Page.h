@@ -8,9 +8,9 @@
 
 #include <QtCore/QString>
 
-class page {
+class Page {
     public:
-        page(){
+        Page(){
 
     }
 

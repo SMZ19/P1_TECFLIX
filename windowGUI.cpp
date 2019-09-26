@@ -4,15 +4,19 @@
 
 #include "windowGUI.h"
 
+
 #include <QPainter>
 #include <QTime>
 #include <iostream>
 #include <QMenu>
 
 
+
 using namespace std;
+linkedList linkedL;
 
 windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
+
 
     //setStyleSheet("background-color:white;");
 
@@ -46,29 +50,22 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     connect(infiniteMode, &QAction::triggered, this, &windowGUI::setModeInfinite);
 
 
-
-
     getDimensions(this->width(),this->height());
     initGame();
+
     for(int i = 0; i < 27 ; i++){
 
         movieList[i] = movie();
         movieList[i].setNum(i);
         movieList[i].setTitle("27");
     }
-    pageList[0] = page();
-    pageList[0].setNum(counter1);
-    pageList[1] = page();
-    pageList[1].setNum(counter2);
-    pageList[2] = page();
-    pageList[2].setNum(counter3);
 
 
-    firstBtn = new QPushButton(QString::number(pageList[0].getNum()),this);
+    firstBtn = new QPushButton(QString::number(counter1),this);
     firstBtn->setGeometry(200,500,50,50);
-    secondBtn = new QPushButton(QString::number(pageList[1].getNum()),this);
+    secondBtn = new QPushButton(QString::number(counter2),this);
     secondBtn->setGeometry(250,500,50,50);
-    thirdBtn = new QPushButton(QString::number(pageList[2].getNum()),this);
+    thirdBtn = new QPushButton(QString::number(counter3),this);
     thirdBtn->setGeometry(300,500,50,50);
     previousBtn = new QPushButton(this);
     previousBtn->setIcon(QIcon("/home/smz/CLionProjects/P1_TECFLIX/Images/previous.png"));
@@ -81,6 +78,21 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
 
     connect(nextBtn, &QPushButton::clicked, this, &windowGUI::changePagesNext);
     connect(previousBtn, &QPushButton::clicked, this, &windowGUI::changePagesPrevious);
+    connect(firstBtn, &QPushButton::clicked,this, &windowGUI::loadImagesP1);
+    connect(secondBtn, &QPushButton::clicked,this, &windowGUI::loadImagesP2);
+    connect(thirdBtn, &QPushButton::clicked,this, &windowGUI::loadImagesP3);
+    linkedL.appendFirst(1);
+    linkedL.appendFirst(2);
+    linkedL.appendFirst(3);
+
+    for(int i =1; i< 4; i++){
+        for(int n = 0; n < 9; n++){
+            linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
+
+        }
+
+    }
+
 
 
 }
@@ -187,12 +199,22 @@ void windowGUI::doDrawing() {
 
 
 }
+void windowGUI::loadImagesP1() {
+    for(int n = 0; n < 9; n+=3){
+
+        linkedL.obtainNode(1)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
 
 
+    }
+
+}
+void windowGUI::loadImagesP2() {}
+void windowGUI::loadImagesP3() {}
 void windowGUI::timerEvent(QTimerEvent *e) {
 
     Q_UNUSED(e);
-
 
     repaint();
 }
@@ -210,27 +232,35 @@ void windowGUI::wheelEvent(QWheelEvent *event) {
 }
 void windowGUI::changePagesNext() {
 
-    counter1+=3;
-    counter2+=3;
-    counter3+=3;
-    pageList[0].setNum(counter1);
-    pageList[1].setNum(counter2);
-    pageList[2].setNum(counter3);
-    firstBtn->setText(QString::number(pageList[0].getNum()));
-    secondBtn->setText(QString::number(pageList[1].getNum()));
-    thirdBtn->setText(QString::number(pageList[2].getNum()));
+    counter1+=1;
+    counter2+=1;
+    counter3+=1;
+
+
+
+    linkedL.obtainNode(1)->value = counter1;
+    linkedL.obtainNode(2)->value = counter2;
+    linkedL.obtainNode(3)->value = counter3;
+
+    //cout<<"Me lleva: " << linkedL.obtainNode(2)->value << endl;
+    firstBtn->setText(QString::number(linkedL.obtainNode(1)->value));
+    secondBtn->setText(QString::number(linkedL.obtainNode(2)->value));
+    thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
 
 }
 void windowGUI::changePagesPrevious() {
 
-    counter1-=3;
-    counter2-=3;
-    counter3-=3;
-    pageList[0].setNum(counter1);
-    pageList[1].setNum(counter2);
-    pageList[2].setNum(counter3);
-    firstBtn->setText(QString::number(pageList[0].getNum()));
-    secondBtn->setText(QString::number(pageList[1].getNum()));
-    thirdBtn->setText(QString::number(pageList[2].getNum()));
+    counter1-=1;
+    counter2-=1;
+    counter3-=1;
+
+    linkedL.obtainNode(1)->value = counter1;
+    linkedL.obtainNode(2)->value = counter2;
+    linkedL.obtainNode(3)->value = counter3;
+
+    firstBtn->setText(QString::number(linkedL.obtainNode(1)->value));
+    secondBtn->setText(QString::number(linkedL.obtainNode(2)->value));
+    thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
+
 
 }

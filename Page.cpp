@@ -2,11 +2,11 @@
 // Created by smz on 20/9/19.
 //
 
-#include "page.h"
+#include "Page.h"
 
-void page::setNum(int num) {
+void Page::setNum(int num) {
     this->num = num;
 }
-int page::getNum() {
+int Page::getNum() {
     return num;
 }

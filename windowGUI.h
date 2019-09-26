@@ -13,6 +13,7 @@
 #include <QKeyEvent>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QLabel>
+
 #include <QWheelEvent>
 #include <qt5/QtWidgets/QPushButton>
 #include <QMainWindow>
@@ -21,7 +22,9 @@
 #include <QMenuBar>
 #include <string>
 #include "movie.h"
-#include "page.h"
+
+#include "linkedList.h"
+
 
 #pragma once
 
@@ -33,23 +36,26 @@ public:
     windowGUI(QWidget *parent = 0);
 
 
+
 private slots:
     void setModeNoPag();
     void setModePag();
     void setModeInfinite();
     void changePagesNext();
     void changePagesPrevious();
+    void loadImagesP1();
+    void loadImagesP2();
+    void loadImagesP3();
 
 protected:
 
     void paintEvent(QPaintEvent *);
     void timerEvent(QTimerEvent *);
     void wheelEvent(QWheelEvent *);
-    void drawLines(QPainter *qp);
+
 
 private:
-    QSlider *slider;
-    QLabel *label;
+
     QPushButton *firstBtn;
     QPushButton *secondBtn;
     QPushButton *thirdBtn;
@@ -75,10 +81,15 @@ private:
     int maxDivY  = 0;
     int squareSize = 200;
     static const int DELAY = 140;
+
     char mode;
     int timerId;
     movie movieList[27];
-    page pageList[3];
+
+
+
+
+
 
 
 
