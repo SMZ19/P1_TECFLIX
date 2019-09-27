@@ -9,7 +9,7 @@
 #define NULL 0
 #include <stdio.h>
 #include <QtWidgets/QPushButton>
-#include "Page.h"
+
 
 struct NodeList{
     int value;

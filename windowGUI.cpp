@@ -9,6 +9,17 @@
 #include <QTime>
 #include <iostream>
 #include <QMenu>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <istream>
+
+using std::cout;
+using std::endl;
+
+std::vector<std::string> csv_read_row(std::istream &in, char delimiter);
+
 
 
 
@@ -53,12 +64,22 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     getDimensions(this->width(),this->height());
     initGame();
 
-    for(int i = 0; i < 27 ; i++){
-
-        movieList[i] = movie();
-        movieList[i].setNum(i);
-        movieList[i].setTitle("27");
+    std::ifstream in("/home/smz/CLionProjects/P1_TECFLIX/dataset/movie_metadata.csv");
+    if (in.fail()){
+        cout << "File not found" << endl;
     }
+    else if(in.good()) {
+        for (int i = 0; i < 27; i++) {
+            std::vector<std::string> row = csv_read_row(in, ',');
+            movieList[i] = movie();
+            movieList[i].setNum(i);
+            movieList[i].setTitle(QString::fromStdString(row[11]));
+
+        }
+    }
+
+    in.close();
+
 
 
     firstBtn = new QPushButton(QString::number(counter1),this);
@@ -203,18 +224,62 @@ void windowGUI::loadImagesP1() {
     for(int n = 0; n < 9; n+=3){
 
         linkedL.obtainNode(1)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n]->setText(movieList[n].getTitle());
         linkedL.obtainNode(1)->ButtonList[n]->show();
         linkedL.obtainNode(1)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n+1]->setText(movieList[n+1].getTitle());
         linkedL.obtainNode(1)->ButtonList[n+1]->show();
         linkedL.obtainNode(1)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(1)->ButtonList[n+2]->setText(movieList[n+2].getTitle());
         linkedL.obtainNode(1)->ButtonList[n+2]->show();
+        hideItems(2);
+        hideItems(3);
+
 
 
     }
 
 }
-void windowGUI::loadImagesP2() {}
-void windowGUI::loadImagesP3() {}
+void windowGUI::loadImagesP2() {
+    for(int n = 0; n < 9; n+=3){
+
+        linkedL.obtainNode(2)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(2)->ButtonList[n]->setText(movieList[n+9].getTitle());
+        linkedL.obtainNode(2)->ButtonList[n]->show();
+        linkedL.obtainNode(2)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(2)->ButtonList[n+1]->setText(movieList[n+10].getTitle());
+        linkedL.obtainNode(2)->ButtonList[n+1]->show();
+        linkedL.obtainNode(2)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(2)->ButtonList[n+2]->setText(movieList[n+11].getTitle());
+        linkedL.obtainNode(2)->ButtonList[n+2]->show();
+        hideItems(1);
+        hideItems(3);
+
+    }
+}
+void windowGUI::loadImagesP3() {
+    for(int n = 0; n < 9; n+=3){
+
+        linkedL.obtainNode(3)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(3)->ButtonList[n]->setText(movieList[n+18].getTitle());
+        linkedL.obtainNode(3)->ButtonList[n]->show();
+        linkedL.obtainNode(3)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(3)->ButtonList[n+1]->setText(movieList[n+19].getTitle());
+        linkedL.obtainNode(3)->ButtonList[n+1]->show();
+        linkedL.obtainNode(3)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
+        linkedL.obtainNode(3)->ButtonList[n+2]->setText(movieList[n+20].getTitle());
+        linkedL.obtainNode(3)->ButtonList[n+2]->show();
+        hideItems(2);
+        hideItems(1);
+
+    }
+}
+void windowGUI::hideItems(int num) {
+    for (int n = 0; n < 9; n++) {
+        linkedL.obtainNode(num)->ButtonList[n]->hide();
+    }
+
+}
 void windowGUI::timerEvent(QTimerEvent *e) {
 
     Q_UNUSED(e);
@@ -266,4 +331,44 @@ void windowGUI::changePagesPrevious() {
     thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
 
 
+}
+std::vector<std::string> csv_read_row(std::istream &in, char delimiter)
+{
+    std::stringstream ss;
+    bool inquotes = false;
+    std::vector<std::string> row;//relying on RVO
+    while(in.good())
+    {
+        char c = in.get();
+        if (!inquotes && c=='"') //beginquotechar
+        {
+            inquotes=true;
+        }
+        else if (inquotes && c=='"') //quotechar
+        {
+            if ( in.peek() == '"')//2 consecutive quotes resolve to 1
+            {
+                ss << (char)in.get();
+            }
+            else //endquotechar
+            {
+                inquotes=false;
+            }
+        }
+        else if (!inquotes && c==delimiter) //end of field
+        {
+            row.push_back( ss.str() );
+            ss.str("");
+        }
+        else if (!inquotes && (c=='\r' || c=='\n') )
+        {
+            if(in.peek()=='\n') { in.get(); }
+            row.push_back( ss.str() );
+            return row;
+        }
+        else
+        {
+            ss << c;
+        }
+    }
 }

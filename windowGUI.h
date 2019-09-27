@@ -54,6 +54,7 @@ protected:
     void wheelEvent(QWheelEvent *);
 
 
+
 private:
 
     QPushButton *firstBtn;
@@ -86,13 +87,7 @@ private:
     int timerId;
     movie movieList[27];
 
-
-
-
-
-
-
-
+    void hideItems(int );
     void doDrawing();
 
     void getDimensions(int , int);
