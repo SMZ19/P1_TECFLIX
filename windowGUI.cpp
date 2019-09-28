@@ -15,21 +15,19 @@
 #include <sstream>
 #include <istream>
 
-using std::cout;
-using std::endl;
-
 std::vector<std::string> csv_read_row(std::istream &in, char delimiter);
 
 
 
 
-using namespace std;
+
 linkedList linkedL;
+int filmsNotDisplayable = 0;
 
 windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
 
 
-    //setStyleSheet("background-color:white;");
+    //setStyleSheet("background-color:black;");
 
     QPixmap noPagModepix("/home/smz/CLionProjects/P1_TECFLIX/Images/nopagmode.png");
     QPixmap pagModepix("/home/smz/CLionProjects/P1_TECFLIX/Images/pagmode.png");
@@ -64,21 +62,7 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     getDimensions(this->width(),this->height());
     initGame();
 
-    std::ifstream in("/home/smz/CLionProjects/P1_TECFLIX/dataset/movie_metadata.csv");
-    if (in.fail()){
-        cout << "File not found" << endl;
-    }
-    else if(in.good()) {
-        for (int i = 0; i < 27; i++) {
-            std::vector<std::string> row = csv_read_row(in, ',');
-            movieList[i] = movie();
-            movieList[i].setNum(i);
-            movieList[i].setTitle(QString::fromStdString(row[11]));
-
-        }
-    }
-
-    in.close();
+    getMovieTitles(0);
 
 
 
@@ -147,6 +131,39 @@ void windowGUI::setModeInfinite() {
     pagMode = false;
     infiniteMode = true;
 
+}
+void windowGUI::getMovieTitles(int num) {
+    std::ifstream in("/home/smz/CLionProjects/P1_TECFLIX/dataset/movie_metadata.csv");
+    if (in.fail()){
+        cout << "File not found" << endl;
+    }
+    else if(in.good()) {
+
+        if(num == 0) {
+            for (int i = 0; i < 27; i++) {
+                std::vector<std::string> row = csv_read_row(in, ',');
+                movieList[i] = movie();
+                movieList[i].setNum(i);
+                movieList[i].setTitle(QString::fromStdString(row[11]));
+
+            }
+        }else{
+
+            for (int i = 0; i < 27+num; i++) {
+                std::vector<std::string> row = csv_read_row(in, ',');
+                if(i >= num) {
+                    //cout<<row[11]<<endl;
+                    movieList[i-num].setTitle(QString::fromStdString(row[11]));
+                }else{
+
+                }
+
+            }
+
+        }
+    }
+
+    in.close();
 }
 
 void windowGUI::paintEvent(QPaintEvent *e) {
@@ -300,6 +317,7 @@ void windowGUI::wheelEvent(QWheelEvent *event) {
 }
 void windowGUI::changePagesNext() {
 
+
     counter1+=1;
     counter2+=1;
     counter3+=1;
@@ -315,20 +333,28 @@ void windowGUI::changePagesNext() {
     secondBtn->setText(QString::number(linkedL.obtainNode(2)->value));
     thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
 
+    filmsNotDisplayable +=9;
+    getMovieTitles(filmsNotDisplayable);
+    loadImagesP1();
+
 }
 void windowGUI::changePagesPrevious() {
+    if(firstBtn->text() >= "1") {
+        counter1 -= 1;
+        counter2 -= 1;
+        counter3 -= 1;
 
-    counter1-=1;
-    counter2-=1;
-    counter3-=1;
+        linkedL.obtainNode(1)->value = counter1;
+        linkedL.obtainNode(2)->value = counter2;
+        linkedL.obtainNode(3)->value = counter3;
 
-    linkedL.obtainNode(1)->value = counter1;
-    linkedL.obtainNode(2)->value = counter2;
-    linkedL.obtainNode(3)->value = counter3;
-
-    firstBtn->setText(QString::number(linkedL.obtainNode(1)->value));
-    secondBtn->setText(QString::number(linkedL.obtainNode(2)->value));
-    thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
+        firstBtn->setText(QString::number(linkedL.obtainNode(1)->value));
+        secondBtn->setText(QString::number(linkedL.obtainNode(2)->value));
+        thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
+        filmsNotDisplayable -= 9;
+        getMovieTitles(filmsNotDisplayable);
+        loadImagesP1();
+    }
 
 
 }

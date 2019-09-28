@@ -63,6 +63,7 @@ private:
     QPushButton *previousBtn;
     QPushButton *nextBtn;
 
+
     int counter1 = 0;
     int counter2 = 1;
     int counter3 = 2;
@@ -89,7 +90,7 @@ private:
 
     void hideItems(int );
     void doDrawing();
-
+    void getMovieTitles(int );
     void getDimensions(int , int);
     void initGame();
 
