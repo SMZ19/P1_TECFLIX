@@ -9,6 +9,7 @@
 #define NULL 0
 #include <stdio.h>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QLabel>
 
 
 struct NodeList{
@@ -16,6 +17,7 @@ struct NodeList{
     NodeList *next;
     QString title;
     QPushButton *ButtonList[9];
+    QLabel *LabelList[9];
 };
 class linkedList {
 public:

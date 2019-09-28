@@ -94,6 +94,8 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
         for(int n = 0; n < 9; n++){
             linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
             linkedL.obtainNode(i)->ButtonList[n]->hide();
+            linkedL.obtainNode(i)->LabelList[n] = new QLabel(this);
+            linkedL.obtainNode(i)->LabelList[n]->hide();
         }
 
     }
@@ -240,15 +242,27 @@ void windowGUI::doDrawing() {
 void windowGUI::loadImagesP1() {
     for(int n = 0; n < 9; n+=3){
 
+
+
         linkedL.obtainNode(1)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(1)->ButtonList[n]->setText(movieList[n].getTitle());
         linkedL.obtainNode(1)->ButtonList[n]->show();
         linkedL.obtainNode(1)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(1)->ButtonList[n+1]->setText(movieList[n+1].getTitle());
         linkedL.obtainNode(1)->ButtonList[n+1]->show();
         linkedL.obtainNode(1)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(1)->ButtonList[n+2]->setText(movieList[n+2].getTitle());
         linkedL.obtainNode(1)->ButtonList[n+2]->show();
+
+        linkedL.obtainNode(1)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(1)->ButtonList[n]->y()+70, 100, 100);
+        linkedL.obtainNode(1)->LabelList[n]->setText(movieList[n].getTitle());
+        linkedL.obtainNode(1)->LabelList[n]->show();
+
+        linkedL.obtainNode(1)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(1)->ButtonList[n+1]->y()+70, 100, 100);
+        linkedL.obtainNode(1)->LabelList[n+1]->setText(movieList[n+1].getTitle());
+        linkedL.obtainNode(1)->LabelList[n+1]->show();
+
+        linkedL.obtainNode(1)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(1)->ButtonList[n+2]->y()+70 , 100, 100);
+        linkedL.obtainNode(1)->LabelList[n+2]->setText(movieList[n+2].getTitle());
+        linkedL.obtainNode(1)->LabelList[n+2]->show();
+
         hideItems(2);
         hideItems(3);
 
@@ -260,15 +274,26 @@ void windowGUI::loadImagesP1() {
 void windowGUI::loadImagesP2() {
     for(int n = 0; n < 9; n+=3){
 
+
         linkedL.obtainNode(2)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(2)->ButtonList[n]->setText(movieList[n+9].getTitle());
         linkedL.obtainNode(2)->ButtonList[n]->show();
         linkedL.obtainNode(2)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(2)->ButtonList[n+1]->setText(movieList[n+10].getTitle());
         linkedL.obtainNode(2)->ButtonList[n+1]->show();
         linkedL.obtainNode(2)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(2)->ButtonList[n+2]->setText(movieList[n+11].getTitle());
         linkedL.obtainNode(2)->ButtonList[n+2]->show();
+
+        linkedL.obtainNode(2)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(2)->ButtonList[n]->y()+70, 100, 100);
+        linkedL.obtainNode(2)->LabelList[n]->setText(movieList[n+9].getTitle());
+        linkedL.obtainNode(2)->LabelList[n]->show();
+
+
+        linkedL.obtainNode(2)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(2)->ButtonList[n+1]->y()+70, 100, 100);
+        linkedL.obtainNode(2)->LabelList[n+1]->setText(movieList[n+10].getTitle());
+        linkedL.obtainNode(2)->LabelList[n+1]->show();
+
+        linkedL.obtainNode(2)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(2)->ButtonList[n+2]->y()+70 , 100, 100);
+        linkedL.obtainNode(2)->LabelList[n+2]->setText(movieList[n+11].getTitle());
+        linkedL.obtainNode(2)->LabelList[n+2]->show();
         hideItems(1);
         hideItems(3);
 
@@ -277,15 +302,27 @@ void windowGUI::loadImagesP2() {
 void windowGUI::loadImagesP3() {
     for(int n = 0; n < 9; n+=3){
 
+
+
         linkedL.obtainNode(3)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(3)->ButtonList[n]->setText(movieList[n+18].getTitle());
         linkedL.obtainNode(3)->ButtonList[n]->show();
         linkedL.obtainNode(3)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(3)->ButtonList[n+1]->setText(movieList[n+19].getTitle());
         linkedL.obtainNode(3)->ButtonList[n+1]->show();
         linkedL.obtainNode(3)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 100, 100);
-        linkedL.obtainNode(3)->ButtonList[n+2]->setText(movieList[n+20].getTitle());
         linkedL.obtainNode(3)->ButtonList[n+2]->show();
+
+        linkedL.obtainNode(3)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(3)->ButtonList[n]->y()+70, 100, 100);
+        linkedL.obtainNode(3)->LabelList[n]->setText(movieList[n+18].getTitle());
+        linkedL.obtainNode(3)->LabelList[n]->show();
+
+        linkedL.obtainNode(3)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(3)->ButtonList[n+1]->y()+70, 100, 100);
+        linkedL.obtainNode(3)->LabelList[n+1]->setText(movieList[n+19].getTitle());
+        linkedL.obtainNode(3)->LabelList[n+1]->show();
+
+        linkedL.obtainNode(3)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(3)->ButtonList[n+2]->y()+70 , 100, 100);
+
+        linkedL.obtainNode(3)->LabelList[n+2]->setText(movieList[n+20].getTitle());
+        linkedL.obtainNode(3)->LabelList[n+2]->show();
         hideItems(2);
         hideItems(1);
 
@@ -294,6 +331,7 @@ void windowGUI::loadImagesP3() {
 void windowGUI::hideItems(int num) {
     for (int n = 0; n < 9; n++) {
         linkedL.obtainNode(num)->ButtonList[n]->hide();
+        linkedL.obtainNode(num)->LabelList[n]->hide();
     }
 
 }
@@ -321,7 +359,6 @@ void windowGUI::changePagesNext() {
     counter1+=1;
     counter2+=1;
     counter3+=1;
-
 
 
     linkedL.obtainNode(1)->value = counter1;
