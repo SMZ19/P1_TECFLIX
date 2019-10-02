@@ -3,6 +3,8 @@
 //
 
 #include "windowGUI.h"
+#include "cURLParser.h"
+
 
 
 #include <QPainter>
@@ -20,7 +22,7 @@ std::vector<std::string> csv_read_row(std::istream &in, char delimiter);
 
 
 
-
+cURLParser urlParser;
 linkedList linkedL;
 int filmsNotDisplayable = 0;
 
@@ -64,7 +66,7 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
 
     getMovieTitles(0);
 
-
+    urlParser.getURL("https://www.imdb.com/title/tt0401729/?ref_=fn_tt_tt_1,738");
 
     firstBtn = new QPushButton(QString::number(counter1),this);
     firstBtn->setGeometry(200,500,50,50);
@@ -212,11 +214,14 @@ void windowGUI::doDrawing() {
             }
         }
     }else if(pagMode == true ){
+
         firstBtn->show();
         secondBtn->show();
         thirdBtn->show();
         nextBtn->show();
         previousBtn->show();
+
+
         /*
         QPen pen(Qt::cyan, 1, Qt::SolidLine);
         qp.setPen(pen);
