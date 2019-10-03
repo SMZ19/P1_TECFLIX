@@ -75,8 +75,8 @@ private:
     static const int columnas = 15;
     bool mapMatrix[columnas][filas];
     int zooming;
-    static const int B_WIDTH = 600;
-    static const int B_HEIGHT = 600;
+    static const int B_WIDTH = 1150;
+    static const int B_HEIGHT = 700;
     int dimX =0;
     int dimY=0;
     int maxDivX  = 0;

@@ -11,6 +11,8 @@ int main(int argc, char *argv[]) {
 
     windowGUI window;
     window.setWindowTitle("TECFLIX");
+    window.setGeometry(10,10,1150,700);
+    window.adjustSize();
     window.show();
 
 
