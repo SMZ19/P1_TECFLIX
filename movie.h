@@ -18,14 +18,18 @@ class movie {
         }
 
 
-
-    int num;
+        int num;
         QString title;
 
-       void setNum(int );
-       int getNum();
-       void setTitle( QString );
-       QString getTitle();
+
+
+        void setNum(int );
+        int getNum();
+        void setTitle( QString );
+        QString getTitle();
+
+
+
 };
 
 

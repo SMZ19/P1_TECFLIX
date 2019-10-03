@@ -4,8 +4,7 @@
 
 #include "windowGUI.h"
 #include "cURLParser.h"
-
-
+#include "ImgDownloader.h"
 
 #include <QPainter>
 #include <QTime>
@@ -16,6 +15,8 @@
 #include <vector>
 #include <sstream>
 #include <istream>
+#include <QDebug>
+
 
 std::vector<std::string> csv_read_row(std::istream &in, char delimiter);
 
@@ -23,8 +24,10 @@ std::vector<std::string> csv_read_row(std::istream &in, char delimiter);
 
 
 cURLParser urlParser;
+ImgDownloader downloader;
 linkedList linkedL;
 int filmsNotDisplayable = 0;
+std::list<string> moviesHTMLList;
 
 windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
 
@@ -64,9 +67,10 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     getDimensions(this->width(),this->height());
     initGame();
 
-    getMovieTitles(0);
+    getMoviesInfo(0);
+    getImagesURL();
 
-    urlParser.getURL("https://www.imdb.com/title/tt0401729/?ref_=fn_tt_tt_1,738");
+
 
     firstBtn = new QPushButton(QString::number(counter1),this);
     firstBtn->setGeometry(200,500,50,50);
@@ -94,10 +98,51 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
 
     for(int i =1; i< 4; i++){
         for(int n = 0; n < 9; n++){
-            linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
-            linkedL.obtainNode(i)->ButtonList[n]->hide();
-            linkedL.obtainNode(i)->LabelList[n] = new QLabel(this);
-            linkedL.obtainNode(i)->LabelList[n]->hide();
+            if(i == 1) {
+                linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
+                std::string str = "/home/smz/CLionProjects/P1_TECFLIX/moviesIMG/img";
+                str += std::to_string(n);
+                str += ".jpg";
+                QPixmap pixmap(str.data());
+                pixmap.scaledToWidth(100);
+                pixmap.scaledToHeight(100);
+                QIcon ButtonIcon(pixmap);
+                linkedL.obtainNode(i)->ButtonList[n]->setIcon(ButtonIcon);
+                linkedL.obtainNode(i)->ButtonList[n]->setIconSize(QSize(100, 100));
+                linkedL.obtainNode(i)->ButtonList[n]->hide();
+                linkedL.obtainNode(i)->LabelList[n] = new QLabel(this);
+                linkedL.obtainNode(i)->LabelList[n]->hide();
+            }else if(i==2){
+                linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
+                std::string str = "/home/smz/CLionProjects/P1_TECFLIX/moviesIMG/img";
+                str += std::to_string(n+9);
+                str += ".jpg";
+                QPixmap pixmap(str.data());
+                QIcon ButtonIcon(pixmap);
+                linkedL.obtainNode(i)->ButtonList[n]->setIcon(ButtonIcon);
+                linkedL.obtainNode(i)->ButtonList[n]->setIconSize(QSize(100, 100));
+                linkedL.obtainNode(i)->ButtonList[n]->hide();
+                linkedL.obtainNode(i)->LabelList[n] = new QLabel(this);
+                linkedL.obtainNode(i)->LabelList[n]->hide();
+
+            }
+            else if(i==3){
+                linkedL.obtainNode(i)->ButtonList[n] = new QPushButton(this);
+                std::string str = "/home/smz/CLionProjects/P1_TECFLIX/moviesIMG/img";
+                str += std::to_string(n+18);
+                str += ".jpg";
+                QPixmap pixmap(str.data());
+                pixmap.scaledToWidth(100);
+                pixmap.scaledToHeight(100);
+                QIcon ButtonIcon(pixmap);
+                linkedL.obtainNode(i)->ButtonList[n]->setIcon(ButtonIcon);
+                linkedL.obtainNode(i)->ButtonList[n]->setIconSize(QSize(100, 100));
+                linkedL.obtainNode(i)->ButtonList[n]->hide();
+                linkedL.obtainNode(i)->LabelList[n] = new QLabel(this);
+                linkedL.obtainNode(i)->LabelList[n]->hide();
+
+            }
+
         }
 
     }
@@ -136,7 +181,7 @@ void windowGUI::setModeInfinite() {
     infiniteMode = true;
 
 }
-void windowGUI::getMovieTitles(int num) {
+void windowGUI::getMoviesInfo(int num) {
     std::ifstream in("/home/smz/CLionProjects/P1_TECFLIX/dataset/movie_metadata.csv");
     if (in.fail()){
         cout << "File not found" << endl;
@@ -149,26 +194,46 @@ void windowGUI::getMovieTitles(int num) {
                 movieList[i] = movie();
                 movieList[i].setNum(i);
                 movieList[i].setTitle(QString::fromStdString(row[11]));
+                moviesHTMLList.push_back(row[17]);
+
 
             }
+
+
         }else{
+            moviesHTMLList.clear();
 
             for (int i = 0; i < 27+num; i++) {
                 std::vector<std::string> row = csv_read_row(in, ',');
                 if(i >= num) {
                     //cout<<row[11]<<endl;
                     movieList[i-num].setTitle(QString::fromStdString(row[11]));
+                    moviesHTMLList.push_back(row[17]);
+
                 }else{
 
                 }
 
             }
 
+
+
         }
     }
 
     in.close();
+
 }
+void windowGUI::getImagesURL(){
+    int counting = 0;
+    for(std::list<std::string>::const_iterator i = moviesHTMLList.begin(); i != moviesHTMLList.end(); ++i)
+    {
+        //cout<<"link: "<< urlParser.getURL(i->c_str())<<endl;
+        downloader.download(urlParser.getURL(i->c_str()),counting);
+        counting++;
+    }
+}
+
 
 void windowGUI::paintEvent(QPaintEvent *e) {
 
@@ -245,9 +310,8 @@ void windowGUI::doDrawing() {
 
 }
 void windowGUI::loadImagesP1() {
+
     for(int n = 0; n < 9; n+=3){
-
-
 
         linkedL.obtainNode(1)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 100, 100);
         linkedL.obtainNode(1)->ButtonList[n]->show();
@@ -376,7 +440,7 @@ void windowGUI::changePagesNext() {
     thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
 
     filmsNotDisplayable +=9;
-    getMovieTitles(filmsNotDisplayable);
+    getMoviesInfo(filmsNotDisplayable);
     loadImagesP1();
 
 }
@@ -394,7 +458,8 @@ void windowGUI::changePagesPrevious() {
         secondBtn->setText(QString::number(linkedL.obtainNode(2)->value));
         thirdBtn->setText(QString::number(linkedL.obtainNode(3)->value));
         filmsNotDisplayable -= 9;
-        getMovieTitles(filmsNotDisplayable);
+        getMoviesInfo(filmsNotDisplayable);
+
         loadImagesP1();
     }
 

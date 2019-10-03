@@ -23,6 +23,7 @@ std::string cURLParser::getURL(std::string url)
 
     curl = curl_easy_init();
     if(curl) {
+
         curl_easy_setopt(curl, CURLOPT_URL,url.data());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
@@ -35,11 +36,15 @@ std::string cURLParser::getURL(std::string url)
         for(std::string::iterator it = str.begin(); it != str.end(); ++it) {
 
             if(*it != '\n') {
+
                 line += *it;
             }else{
                 QString lineInQString = QString::fromStdString(line);
                 if(lineInQString.contains("182,268")) {
-                    std::cout << "Línea: " << line << std::endl;
+                    //std::cout << "Línea: " << line << std::endl;
+                    line.erase(line.begin(),line.begin()+5);
+                    line.erase(line.end()-4,line.end());
+                    readBuffer = line;
                 }
                 line.clear();
             }
