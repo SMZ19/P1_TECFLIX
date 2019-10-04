@@ -323,25 +323,26 @@ void windowGUI::loadImagesP1() {
             linkedL.obtainNode(1)->ButtonList[n+3]->show();
 
 
-            linkedL.obtainNode(1)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(1)->ButtonList[n]->y()+70, 200, 200);
+            linkedL.obtainNode(1)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(1)->ButtonList[n]->y()+230, 168, 100);
             linkedL.obtainNode(1)->LabelList[n]->setText(movieList[n].getTitle());
             linkedL.obtainNode(1)->LabelList[n]->show();
 
-            linkedL.obtainNode(1)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(1)->ButtonList[n+1]->y()+70, 200, 200);
+            linkedL.obtainNode(1)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+200, linkedL.obtainNode(1)->ButtonList[n+1]->y()+230, 168, 100);
+
             linkedL.obtainNode(1)->LabelList[n+1]->setText(movieList[n+1].getTitle());
             linkedL.obtainNode(1)->LabelList[n+1]->show();
 
-            linkedL.obtainNode(1)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(1)->ButtonList[n+2]->y()+70 , 200, 200);
+            linkedL.obtainNode(1)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+400, linkedL.obtainNode(1)->ButtonList[n+2]->y()+230 , 168, 100);
             linkedL.obtainNode(1)->LabelList[n+2]->setText(movieList[n+2].getTitle());
             linkedL.obtainNode(1)->LabelList[n+2]->show();
 
-            linkedL.obtainNode(1)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+350, linkedL.obtainNode(1)->ButtonList[n+3]->y()+70 , 200, 200);
-            linkedL.obtainNode(1)->LabelList[n+3]->setText(movieList[n+2].getTitle());
+            linkedL.obtainNode(1)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+600, linkedL.obtainNode(1)->ButtonList[n+3]->y()+230 , 168, 100);
+            linkedL.obtainNode(1)->LabelList[n+3]->setText(movieList[n+3].getTitle());
             linkedL.obtainNode(1)->LabelList[n+3]->show();
             linkedL.obtainNode(1)->ButtonList[n + 4]->setGeometry((previousBtn->x() - 25) + 800, (n * 10) + 20, 168,268);
             linkedL.obtainNode(1)->ButtonList[n + 4]->show();
-            linkedL.obtainNode(1)->LabelList[n+4]->setGeometry((previousBtn->x()-25)+800, linkedL.obtainNode(1)->ButtonList[n+4]->y()+70 , 200, 200);
-            linkedL.obtainNode(1)->LabelList[n+4]->setText(movieList[n+2].getTitle());
+            linkedL.obtainNode(1)->LabelList[n+4]->setGeometry((previousBtn->x()-25)+800, linkedL.obtainNode(1)->ButtonList[n+4]->y()+230 , 168, 100);
+            linkedL.obtainNode(1)->LabelList[n+4]->setText(movieList[n+4].getTitle());
             linkedL.obtainNode(1)->LabelList[n+4]->show();
         }else{
 
@@ -355,85 +356,174 @@ void windowGUI::loadImagesP1() {
             linkedL.obtainNode(1)->ButtonList[n+3]->show();
 
 
-            linkedL.obtainNode(1)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(1)->ButtonList[n]->y()+70, 200, 200);
+            linkedL.obtainNode(1)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(1)->ButtonList[n]->y()+230, 168, 100);
             linkedL.obtainNode(1)->LabelList[n]->setText(movieList[n].getTitle());
+
             linkedL.obtainNode(1)->LabelList[n]->show();
 
-            linkedL.obtainNode(1)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(1)->ButtonList[n+1]->y()+70, 200, 200);
+            linkedL.obtainNode(1)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+200, linkedL.obtainNode(1)->ButtonList[n+1]->y()+230, 168, 100);
             linkedL.obtainNode(1)->LabelList[n+1]->setText(movieList[n+1].getTitle());
+
             linkedL.obtainNode(1)->LabelList[n+1]->show();
 
-            linkedL.obtainNode(1)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(1)->ButtonList[n+2]->y()+70 , 200, 200);
+            linkedL.obtainNode(1)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+400, linkedL.obtainNode(1)->ButtonList[n+2]->y()+230 , 168, 100);
             linkedL.obtainNode(1)->LabelList[n+2]->setText(movieList[n+2].getTitle());
             linkedL.obtainNode(1)->LabelList[n+2]->show();
 
-            linkedL.obtainNode(1)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+350, linkedL.obtainNode(1)->ButtonList[n+3]->y()+70 , 200, 200);
-            linkedL.obtainNode(1)->LabelList[n+3]->setText(movieList[n+2].getTitle());
+            linkedL.obtainNode(1)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+600, linkedL.obtainNode(1)->ButtonList[n+3]->y()+230 , 168, 100);
+            linkedL.obtainNode(1)->LabelList[n+3]->setText(movieList[n+3].getTitle());
             linkedL.obtainNode(1)->LabelList[n+3]->show();
+
         }
-
-
 
         hideItems(2);
         hideItems(3);
-
-
 
     }
 
 }
 void windowGUI::loadImagesP2() {
-    for(int n = 0; n < 9; n+=3){
+
+    for(int n = 0; n < 9; n+=5){
+
+        if(n!=5) {
+
+            linkedL.obtainNode(2)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 10) + 20, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n]->show();
+            linkedL.obtainNode(2)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+200, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n+1]->show();
+            linkedL.obtainNode(2)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+400, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n+2]->show();
+            linkedL.obtainNode(2)->ButtonList[n+3]->setGeometry((previousBtn->x()-25)+600, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n+3]->show();
 
 
-        linkedL.obtainNode(2)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 168,268);
-        linkedL.obtainNode(2)->ButtonList[n]->show();
-        linkedL.obtainNode(2)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 168,268);
-        linkedL.obtainNode(2)->ButtonList[n+1]->show();
-        linkedL.obtainNode(2)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 168,268);
-        linkedL.obtainNode(2)->ButtonList[n+2]->show();
+            linkedL.obtainNode(2)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(2)->ButtonList[n]->y()+230, 168, 100);
+            linkedL.obtainNode(2)->LabelList[n]->setText(movieList[n+9].getTitle());
+            linkedL.obtainNode(2)->LabelList[n]->show();
 
-        linkedL.obtainNode(2)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(2)->ButtonList[n]->y()+70, 200, 200);
-        linkedL.obtainNode(2)->LabelList[n]->setText(movieList[n+9].getTitle());
-        linkedL.obtainNode(2)->LabelList[n]->show();
+            linkedL.obtainNode(2)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+200, linkedL.obtainNode(2)->ButtonList[n+1]->y()+230, 168, 100);
+
+            linkedL.obtainNode(2)->LabelList[n+1]->setText(movieList[n+10].getTitle());
+            linkedL.obtainNode(2)->LabelList[n+1]->show();
+
+            linkedL.obtainNode(2)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+400, linkedL.obtainNode(2)->ButtonList[n+2]->y()+230 , 168, 100);
+            linkedL.obtainNode(2)->LabelList[n+2]->setText(movieList[n+11].getTitle());
+            linkedL.obtainNode(2)->LabelList[n+2]->show();
+
+            linkedL.obtainNode(2)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+600, linkedL.obtainNode(2)->ButtonList[n+3]->y()+230 , 168, 100);
+            linkedL.obtainNode(2)->LabelList[n+3]->setText(movieList[n+12].getTitle());
+            linkedL.obtainNode(2)->LabelList[n+3]->show();
+            linkedL.obtainNode(2)->ButtonList[n + 4]->setGeometry((previousBtn->x() - 25) + 800, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n + 4]->show();
+            linkedL.obtainNode(2)->LabelList[n+4]->setGeometry((previousBtn->x()-25)+800, linkedL.obtainNode(2)->ButtonList[n+4]->y()+230 , 168, 100);
+            linkedL.obtainNode(2)->LabelList[n+4]->setText(movieList[n+13].getTitle());
+            linkedL.obtainNode(2)->LabelList[n+4]->show();
+        }else{
+
+            linkedL.obtainNode(2)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 60) + 30, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n]->show();
+            linkedL.obtainNode(2)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+200, (n * 60) + 30, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n+1]->show();
+            linkedL.obtainNode(2)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+400, (n * 60) + 30, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n+2]->show();
+            linkedL.obtainNode(2)->ButtonList[n+3]->setGeometry((previousBtn->x()-25)+600, (n * 60) + 30, 168,268);
+            linkedL.obtainNode(2)->ButtonList[n+3]->show();
 
 
-        linkedL.obtainNode(2)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(2)->ButtonList[n+1]->y()+70, 200, 200);
-        linkedL.obtainNode(2)->LabelList[n+1]->setText(movieList[n+10].getTitle());
-        linkedL.obtainNode(2)->LabelList[n+1]->show();
+            linkedL.obtainNode(2)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(2)->ButtonList[n]->y()+230, 168, 100);
+            linkedL.obtainNode(2)->LabelList[n]->setText(movieList[n+9].getTitle());
 
-        linkedL.obtainNode(2)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(2)->ButtonList[n+2]->y()+70 , 200, 200);
-        linkedL.obtainNode(2)->LabelList[n+2]->setText(movieList[n+11].getTitle());
-        linkedL.obtainNode(2)->LabelList[n+2]->show();
+            linkedL.obtainNode(2)->LabelList[n]->show();
+
+            linkedL.obtainNode(2)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+200, linkedL.obtainNode(2)->ButtonList[n+1]->y()+230, 168, 100);
+            linkedL.obtainNode(2)->LabelList[n+1]->setText(movieList[n+10].getTitle());
+
+            linkedL.obtainNode(2)->LabelList[n+1]->show();
+
+            linkedL.obtainNode(2)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+400, linkedL.obtainNode(2)->ButtonList[n+2]->y()+230 , 168, 100);
+            linkedL.obtainNode(2)->LabelList[n+2]->setText(movieList[n+11].getTitle());
+            linkedL.obtainNode(2)->LabelList[n+2]->show();
+
+            linkedL.obtainNode(2)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+600, linkedL.obtainNode(2)->ButtonList[n+3]->y()+230 , 168, 100);
+            linkedL.obtainNode(2)->LabelList[n+3]->setText(movieList[n+12].getTitle());
+            linkedL.obtainNode(2)->LabelList[n+3]->show();
+
+        }
+
+
         hideItems(1);
         hideItems(3);
 
     }
 }
 void windowGUI::loadImagesP3() {
-    for(int n = 0; n < 9; n+=3){
+    for(int n = 0; n < 9; n+=5){
+
+        if(n!=5) {
+
+            linkedL.obtainNode(3)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 10) + 20, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n]->show();
+            linkedL.obtainNode(3)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+200, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n+1]->show();
+            linkedL.obtainNode(3)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+400, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n+2]->show();
+            linkedL.obtainNode(3)->ButtonList[n+3]->setGeometry((previousBtn->x()-25)+600, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n+3]->show();
 
 
+            linkedL.obtainNode(3)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(3)->ButtonList[n]->y()+230, 168, 100);
+            linkedL.obtainNode(3)->LabelList[n]->setText(movieList[n+18].getTitle());
+            linkedL.obtainNode(3)->LabelList[n]->show();
 
-        linkedL.obtainNode(3)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 50) + 50, 168,268);
-        linkedL.obtainNode(3)->ButtonList[n]->show();
-        linkedL.obtainNode(3)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+125, (n * 50) + 50, 168,268);
-        linkedL.obtainNode(3)->ButtonList[n+1]->show();
-        linkedL.obtainNode(3)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+250, (n * 50) + 50, 168,268);
-        linkedL.obtainNode(3)->ButtonList[n+2]->show();
+            linkedL.obtainNode(3)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+200, linkedL.obtainNode(3)->ButtonList[n+1]->y()+230, 168, 100);
 
-        linkedL.obtainNode(3)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(3)->ButtonList[n]->y()+70, 200, 200);
-        linkedL.obtainNode(3)->LabelList[n]->setText(movieList[n+18].getTitle());
-        linkedL.obtainNode(3)->LabelList[n]->show();
+            linkedL.obtainNode(3)->LabelList[n+1]->setText(movieList[n+19].getTitle());
+            linkedL.obtainNode(3)->LabelList[n+1]->show();
 
-        linkedL.obtainNode(3)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+125, linkedL.obtainNode(3)->ButtonList[n+1]->y()+70, 200, 200);
-        linkedL.obtainNode(3)->LabelList[n+1]->setText(movieList[n+19].getTitle());
-        linkedL.obtainNode(3)->LabelList[n+1]->show();
+            linkedL.obtainNode(3)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+400, linkedL.obtainNode(3)->ButtonList[n+2]->y()+230 , 168, 100);
+            linkedL.obtainNode(3)->LabelList[n+2]->setText(movieList[n+20].getTitle());
+            linkedL.obtainNode(3)->LabelList[n+2]->show();
 
-        linkedL.obtainNode(3)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+250, linkedL.obtainNode(3)->ButtonList[n+2]->y()+70 , 200, 200);
+            linkedL.obtainNode(3)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+600, linkedL.obtainNode(3)->ButtonList[n+3]->y()+230 , 168, 100);
+            linkedL.obtainNode(3)->LabelList[n+3]->setText(movieList[n+21].getTitle());
+            linkedL.obtainNode(3)->LabelList[n+3]->show();
+            linkedL.obtainNode(3)->ButtonList[n + 4]->setGeometry((previousBtn->x() - 25) + 800, (n * 10) + 20, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n + 4]->show();
+            linkedL.obtainNode(3)->LabelList[n+4]->setGeometry((previousBtn->x()-25)+800, linkedL.obtainNode(3)->ButtonList[n+4]->y()+230 , 168, 100);
+            linkedL.obtainNode(3)->LabelList[n+4]->setText(movieList[n+22].getTitle());
+            linkedL.obtainNode(3)->LabelList[n+4]->show();
+        }else{
 
-        linkedL.obtainNode(3)->LabelList[n+2]->setText(movieList[n+20].getTitle());
-        linkedL.obtainNode(3)->LabelList[n+2]->show();
+            linkedL.obtainNode(3)->ButtonList[n]->setGeometry((previousBtn->x()-25), (n * 60) + 30, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n]->show();
+            linkedL.obtainNode(3)->ButtonList[n+1]->setGeometry((previousBtn->x()-25)+200, (n * 60) + 30, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n+1]->show();
+            linkedL.obtainNode(3)->ButtonList[n+2]->setGeometry((previousBtn->x()-25)+400, (n * 60) + 30, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n+2]->show();
+            linkedL.obtainNode(3)->ButtonList[n+3]->setGeometry((previousBtn->x()-25)+600, (n * 60) + 30, 168,268);
+            linkedL.obtainNode(3)->ButtonList[n+3]->show();
+
+
+            linkedL.obtainNode(3)->LabelList[n]->setGeometry((previousBtn->x()-25), linkedL.obtainNode(3)->ButtonList[n]->y()+230, 168, 100);
+            linkedL.obtainNode(3)->LabelList[n]->setText(movieList[n+18].getTitle());
+
+            linkedL.obtainNode(3)->LabelList[n]->show();
+
+            linkedL.obtainNode(3)->LabelList[n+1]->setGeometry((previousBtn->x()-25)+200, linkedL.obtainNode(3)->ButtonList[n+1]->y()+230, 168, 100);
+            linkedL.obtainNode(3)->LabelList[n+1]->setText(movieList[n+19].getTitle());
+
+            linkedL.obtainNode(3)->LabelList[n+1]->show();
+
+            linkedL.obtainNode(3)->LabelList[n+2]->setGeometry((previousBtn->x()-25)+400, linkedL.obtainNode(3)->ButtonList[n+2]->y()+230 , 168, 100);
+            linkedL.obtainNode(3)->LabelList[n+2]->setText(movieList[n+20].getTitle());
+            linkedL.obtainNode(3)->LabelList[n+2]->show();
+
+            linkedL.obtainNode(3)->LabelList[n+3]->setGeometry((previousBtn->x()-25)+600, linkedL.obtainNode(3)->ButtonList[n+3]->y()+230 , 168, 100);
+            linkedL.obtainNode(3)->LabelList[n+3]->setText(movieList[n+21].getTitle());
+            linkedL.obtainNode(3)->LabelList[n+3]->show();
+
+        }
         hideItems(2);
         hideItems(1);
 
