@@ -27,7 +27,9 @@ cURLParser urlParser;
 ImgDownloader downloader;
 linkedList linkedL;
 int filmsNotDisplayable = 0;
-std::list<string> moviesHTMLList;
+QPushButton *ButtonListNoPagMode[5043];
+
+
 
 windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
 
@@ -91,6 +93,11 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     connect(firstBtn, &QPushButton::clicked,this, &windowGUI::loadImagesP1);
     connect(secondBtn, &QPushButton::clicked,this, &windowGUI::loadImagesP2);
     connect(thirdBtn, &QPushButton::clicked,this, &windowGUI::loadImagesP3);
+    for(int i = 0; i<5044; i++){
+        QPushButton *button = new QPushButton(this);
+        ButtonListNoPagMode[i] = button;
+        ButtonListNoPagMode[i]->hide();
+    }
     linkedL.appendFirst(1);
     linkedL.appendFirst(2);
     linkedL.appendFirst(3);
@@ -98,7 +105,7 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
     getMoviesInfo(0,0);
     //getImagesURL(0,0);
     //reorganizeAndDelete(0,0);
-
+    loadImagesP1();
 
 
 }
@@ -370,6 +377,10 @@ void windowGUI::doDrawing() {
 
 
     if(nopagMode == true ) {
+
+        hideItems(1);
+        hideItems(2);
+        hideItems(3);
         firstBtn->hide();
         secondBtn->hide();
         thirdBtn->hide();
@@ -377,17 +388,41 @@ void windowGUI::doDrawing() {
         previousBtn->hide();
         QPen pen(Qt::black, 1, Qt::SolidLine);
         qp.setPen(pen);
+
+        int counter1 = 0;
         for (int c = 0; c < maxDivX; c++) {
             for (int f = 0; f < maxDivY; f++) {
-                if(this->width() == 449 && this->height() == 449){
+                if (this->width() == 449 && this->height() == 449) {
                     qp.drawRect(0, 0, 400, 400);
-                }
-                else {
+                } else {
+
+
+
+
+                    std::string str = "/home/smz/CLionProjects/P1_TECFLIX/moviesIMG/img";
+                    str += std::to_string(counter1);
+                    str += ".jpg";
+                    QPixmap pixmap(str.data());
+
+                    QIcon ButtonIcon(pixmap);
+                    ButtonListNoPagMode[counter1]->setIcon(ButtonIcon);
+                    ButtonListNoPagMode[counter1]->setIconSize(QSize(squareSize - 20, squareSize - 10));
+
+
+                    ButtonListNoPagMode[counter1]->setGeometry(c * squareSize, f * squareSize, squareSize - 20,squareSize - 10);
+                    ButtonListNoPagMode[counter1]->show();
+
                     qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
+                    counter1++;
                 }
+
             }
         }
+
+
+
     }else if(pagMode == true ){
+
 
         firstBtn->show();
         secondBtn->show();
@@ -662,6 +697,9 @@ void windowGUI::wheelEvent(QWheelEvent *event) {
         zooming+=10;
         squareSize -= 5;
 
+    }
+    for(int i = 0; i<5044; i++){
+        ButtonListNoPagMode[i]->hide();
     }
 
     QWidget::wheelEvent(event);
