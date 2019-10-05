@@ -409,10 +409,10 @@ void windowGUI::doDrawing() {
                     ButtonListNoPagMode[counter1]->setIconSize(QSize(squareSize - 20, squareSize - 10));
 
 
-                    ButtonListNoPagMode[counter1]->setGeometry(c * squareSize, f * squareSize, squareSize - 20,squareSize - 10);
+                    ButtonListNoPagMode[counter1]->setGeometry(c * squareSize, (f * squareSize)+20, squareSize - 20,squareSize - 10);
                     ButtonListNoPagMode[counter1]->show();
 
-                    qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
+                    //qp.drawRect(c * squareSize, (f * squareSize)+20, squareSize - 20, squareSize - 10);
                     counter1++;
                 }
 
@@ -422,6 +422,9 @@ void windowGUI::doDrawing() {
 
 
     }else if(pagMode == true ){
+        for(int i = 0; i<5044; i++){
+            ButtonListNoPagMode[i]->hide();
+        }
 
 
         firstBtn->show();
