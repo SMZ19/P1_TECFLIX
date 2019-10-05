@@ -11,6 +11,7 @@
 class cURLParser {
     public:
       std::string getURL(std::string );
+
 };
 
 

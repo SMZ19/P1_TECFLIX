@@ -90,10 +90,11 @@ private:
 
     void hideItems(int );
     void doDrawing();
-    void getMoviesInfo(int );
+    void getMoviesInfo(int , int );
     void getDimensions(int , int);
     void initGame();
-    void getImagesURL();
+    void getImagesURL(int , int);
+    void reorganizeAndDelete(int , int);
 
 };
 

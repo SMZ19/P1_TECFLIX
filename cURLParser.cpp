@@ -53,3 +53,4 @@ std::string cURLParser::getURL(std::string url)
     }
     return readBuffer;
 }
+

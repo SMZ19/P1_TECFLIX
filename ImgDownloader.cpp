@@ -21,6 +21,7 @@ void ImgDownloader::download(std::string url, int num) {
 
 
     fp= fopen((const char*) str.data(), "wb");
+
     std::cout<<"URL: "<<url.data()<<std::endl;
     curl_easy_setopt(curl, CURLOPT_URL,url.data());
 
