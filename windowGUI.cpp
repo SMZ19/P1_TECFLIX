@@ -28,6 +28,7 @@ ImgDownloader downloader;
 linkedList linkedL;
 int filmsNotDisplayable = 0;
 QPushButton *ButtonListNoPagMode[5043];
+QPushButton *ButtonListInfMode[27];
 
 
 
@@ -97,6 +98,11 @@ windowGUI::windowGUI(QWidget *parent) : QMainWindow(parent) {
         QPushButton *button = new QPushButton(this);
         ButtonListNoPagMode[i] = button;
         ButtonListNoPagMode[i]->hide();
+    }
+    for(int i = 0; i<27; i++){
+        QPushButton *button = new QPushButton(this);
+        ButtonListInfMode[i] = button;
+        ButtonListInfMode[i]->hide();
     }
     linkedL.appendFirst(1);
     linkedL.appendFirst(2);
@@ -355,20 +361,22 @@ void windowGUI::paintEvent(QPaintEvent *e) {
 
     Q_UNUSED(e);
     doDrawing();
-    if((B_HEIGHT + zooming) < 650 && B_WIDTH+zooming > 400 && B_HEIGHT+zooming > 400) {
-        this->resize(B_WIDTH + zooming, B_HEIGHT + zooming);
-    }else{
-        if((B_WIDTH+zooming < 450) && (B_HEIGHT+zooming) < 450){
-            this->resize(449 , 449);
+    if(nopagMode || pagMode) {
+        if ((B_HEIGHT + zooming) < 650 && B_WIDTH + zooming > 400 && B_HEIGHT + zooming > 400) {
+            this->resize(B_WIDTH + zooming, B_HEIGHT + zooming);
+        } else {
+            if ((B_WIDTH + zooming < 450) && (B_HEIGHT + zooming) < 450) {
+                this->resize(449, 449);
 
-        }else{
+            } else {
 
-            this->resize(B_WIDTH + zooming, B_HEIGHT);
+                this->resize(B_WIDTH + zooming, B_HEIGHT);
+            }
         }
+
+
+        getDimensions(this->width(), this->height());
     }
-
-
-    getDimensions(this->width(),this->height());
 }
 
 void windowGUI::doDrawing() {
@@ -444,11 +452,57 @@ void windowGUI::doDrawing() {
         }*/
 
     }else if(infiniteMode == true){
+        for(int i = 0; i<5044; i++){
+            ButtonListNoPagMode[i]->hide();
+        }
+        hideItems(1);
+        hideItems(2);
+        hideItems(3);
+        firstBtn->hide();
+        secondBtn->hide();
+        thirdBtn->hide();
+        nextBtn->hide();
+        previousBtn->hide();
         QPen pen(Qt::red, 1, Qt::SolidLine);
         qp.setPen(pen);
-        for (int c = 0; c < maxDivX; c++) {
-            for (int f = 0; f < maxDivY; f++) {
-                qp.drawRect(c * squareSize, f * squareSize, squareSize - 20, squareSize - 10);
+
+        int itemsCounter = 0;
+        int counterX = 0;
+        int rowsToBeAdded = 9;
+        for (int c = 0; c < 3; c++) {
+            for (int f = 0; f < 9; f++) {
+                std::string str = "/home/smz/CLionProjects/P1_TECFLIX/moviesIMG/img";
+                str += std::to_string(itemsCounter);
+                str += ".jpg";
+                QPixmap pixmap(str.data());
+
+                QIcon ButtonIcon(pixmap);
+                ButtonListInfMode[itemsCounter]->setIcon(ButtonIcon);
+                ButtonListInfMode[itemsCounter]->setIconSize(QSize(168, 200));
+
+
+                ButtonListInfMode[itemsCounter]->setGeometry((c*200) +300, (f*210)  +30+zooming, 168, 200);
+                ButtonListInfMode[itemsCounter]->show();
+
+
+
+                if (ButtonListInfMode[itemsCounter]->y() <= 0) {
+
+                    ButtonListInfMode[itemsCounter]->setGeometry((counterX * 200) + 300, (rowsToBeAdded * 210) + 30 + zooming, 168, 200);
+                    ButtonListInfMode[itemsCounter]->show();
+                    counterX++;
+                    if(counterX == 3){
+                        counterX = 0;
+                        rowsToBeAdded++;
+                    }
+
+
+                }
+
+
+                //cout<<"Filas: "<<rowsToBeAdded<<endl;
+                //qp.drawRect((c*200) +300, (f*210)  +30+zooming, 168, 200);
+                itemsCounter++;
             }
         }
     }
@@ -693,16 +747,27 @@ void windowGUI::timerEvent(QTimerEvent *e) {
     repaint();
 }
 void windowGUI::wheelEvent(QWheelEvent *event) {
-    if(event->delta() == 120){
-        zooming-=10;
-        squareSize += 5;
-    }else{
-        zooming+=10;
-        squareSize -= 5;
+    if(nopagMode) {
+        if (event->delta() == 120) {
+            zooming -= 10;
+            squareSize += 5;
+        } else {
+            zooming += 10;
+            squareSize -= 5;
 
-    }
-    for(int i = 0; i<5044; i++){
-        ButtonListNoPagMode[i]->hide();
+        }
+        for (int i = 0; i < 5044; i++) {
+            ButtonListNoPagMode[i]->hide();
+        }
+    }else if(infiniteMode){
+        if (event->delta() == 120) {
+            zooming -= 10;
+
+        } else {
+            zooming += 10;
+
+
+        }
     }
 
     QWidget::wheelEvent(event);
